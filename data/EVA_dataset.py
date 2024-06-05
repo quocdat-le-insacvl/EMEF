@@ -11,6 +11,7 @@ class EVADataset(BaseDataset):
         self.oe = os.path.join(opt.dataroot, "oe")
         self.ue = os.path.join(opt.dataroot, "ue")
         self.image_names = [x.replace(".jpg", "").replace(".png", "") for x in os.listdir(self.dir_images)]
+        # self.image_names = [xfor x in os.listdir(self.dir_images)]
         self.isTrain = opt.isTrain
 
         self.transforms = transforms.Compose([
@@ -21,11 +22,14 @@ class EVADataset(BaseDataset):
 
     def __getitem__(self, index):
         image_name = self.image_names[index]
-        image_path = os.path.join(self.dir_images, image_name + ".png")
+        # image_path = os.path.join(self.dir_images, image_name + ".png")
+        image_path = os.path.join(self.dir_images, image_name + ".jpg")
 
         image = self.transforms(Image.open(image_path))
-        oe_path = os.path.join(self.oe, image_name+'.png')
-        ue_path = os.path.join(self.ue, image_name + '.png')
+        # oe_path = os.path.join(self.oe, image_name+'.png')
+        # ue_path = os.path.join(self.ue, image_name + '.png')
+        oe_path = os.path.join(self.oe, image_name+'.jpg')
+        ue_path = os.path.join(self.ue, image_name + '.jpg')
         oe = self.transforms(Image.open(oe_path))
         ue = self.transforms(Image.open(ue_path))
 
