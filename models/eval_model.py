@@ -22,6 +22,8 @@ class EvalModel(BaseModel):
         BaseModel.__init__(self, opt)
         self.criterion = mef_ssim
         self.transform = transforms.Grayscale()
+        self.netG = networks.define_G(opt.input_nc * 2, opt.output_nc, opt.ngf, opt.netG, opt.norm,
+                                      not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids)
         
     def set_input(self, data):
         self.oe = data["oe"].to(self.device)
