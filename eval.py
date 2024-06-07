@@ -15,7 +15,7 @@ def save_result(path, result):
 
 if __name__ == '__main__':
     opt = TestOptions().parse(True)  # get test options
-    opt.stage = 3
+    opt.stage = 1
     # hard-code some parameters for test
     opt.num_threads = 0   # test code only supports num_threads = 1
     opt.batch_size = 1    # test code only supports batch_size = 1
@@ -31,20 +31,20 @@ if __name__ == '__main__':
     if not os.path.exists(web_dir):
         os.makedirs(web_dir)
 
-    MEFSSIM_list = []
+    # MEFSSIM_list = []
     for i, data in enumerate(dataset):
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
         
         img_path = model.get_image_paths()     # get image paths
         print('processing (%04d)-th image... %s' % (i, img_path))
-        print(model.loss_G_MEFSSIM)
-        MEFSSIM_list.append(model.loss_G_MEFSSIM.cpu())
+        # print(model.loss_G_MEFSSIM)
+        # MEFSSIM_list.append(model.loss_G_MEFSSIM.cpu())
         
-    average_MEFSSIM = np.mean(MEFSSIM_list)
-    result_dir = os.path.join(web_dir, 'result.txt')
-    result_str = f'MEF-SSIM = {average_MEFSSIM}'
-    print(result_str)
-    save_result(result_dir, result_str)
-    np.save(os.path.join(web_dir, 'result.npy'), MEFSSIM_list)
+    # average_MEFSSIM = np.mean(MEFSSIM_list)
+    # result_dir = os.path.join(web_dir, 'result.txt')
+    # result_str = f'MEF-SSIM = {average_MEFSSIM}'
+    # print(result_str)
+    # save_result(result_dir, result_str)
+    # np.save(os.path.join(web_dir, 'result.npy'), MEFSSIM_list)
     
