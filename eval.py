@@ -5,6 +5,7 @@ from data import create_dataset
 import numpy as np
 import torch
 import os
+import matplotlib.pyplot as plt
 
 
 def save_result(path, result):
@@ -50,4 +51,9 @@ if __name__ == '__main__':
     # save_result(result_dir, result_str)
     # np.save(os.path.join(web_dir, 'result.npy'), MEFSSIM_list)
     np.save(os.path.join(web_dir, 'fakeB_list.npy'), fakeB_list)
+    fake = fakeB_list.squeeze()
+    image = transforms.ToPILImage()(fake)
+    # image = image.resize(original_size, Image.BILINEAR)
+    # image.save('res.png')
+    plt.imshow(image)
 
