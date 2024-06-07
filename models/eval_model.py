@@ -27,14 +27,18 @@ class EvalModel(BaseModel):
         self.oe = data["oe"].to(self.device)
         self.ue = data["ue"].to(self.device)
         self.gt = data["gt"].to(self.device)
+        self.cls = data['cls'].to(self.device)
         self.image_paths = data['image_name']
 
     def forward(self):
-        self.gt_gray = self.transform(rescale(self.gt))
-        self.oe_gray = self.transform(rescale(self.oe))
-        self.ue_gray = self.transform(rescale(self.ue))
-        self.img_seq = torch.cat([self.oe_gray, self.ue_gray], 1)
-        self.loss_G_MEFSSIM = self.criterion(self.img_seq, self.gt_gray)
+        # self.gt_gray = self.transform(rescale(self.gt))
+        # self.oe_gray = self.transform(rescale(self.oe))
+        # self.ue_gray = self.transform(rescale(self.ue))
+        # self.img_seq = torch.cat([self.oe_gray, self.ue_gray], 1)
+        # self.loss_G_MEFSSIM = self.criterion(self.img_seq, self.gt_gray)
+        input_data = torch.cat([self.oe, self.ue], 1)
+        d8, d7, d6, d5, d4, e0, e1, e2, e3 = self.netG(input_data, self.cls)
+        self.fake_B = d8
 
     def optimize_parameters(self):
         self.forward()                   # compute fake images: G(A)
