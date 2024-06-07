@@ -34,7 +34,7 @@ class HDRDataset(BaseDataset):
 
     def get_one_hot(self, img_name):
         tmp = int(img_name[-2:])
-        class_count = 4
+        class_count = 1
         r = self.one_hot(tmp, class_count)
         return r
 
