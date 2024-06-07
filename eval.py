@@ -32,6 +32,7 @@ if __name__ == '__main__':
         os.makedirs(web_dir)
 
     # MEFSSIM_list = []
+    fakeB_list = []
     for i, data in enumerate(dataset):
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
@@ -40,6 +41,7 @@ if __name__ == '__main__':
         print('processing (%04d)-th image... %s' % (i, img_path))
         # print(model.loss_G_MEFSSIM)
         # MEFSSIM_list.append(model.loss_G_MEFSSIM.cpu())
+        fakeB_list.append(model.fake_B.cpu())
         
     # average_MEFSSIM = np.mean(MEFSSIM_list)
     # result_dir = os.path.join(web_dir, 'result.txt')
@@ -47,4 +49,5 @@ if __name__ == '__main__':
     # print(result_str)
     # save_result(result_dir, result_str)
     # np.save(os.path.join(web_dir, 'result.npy'), MEFSSIM_list)
-    
+    np.save(os.path.join(web_dir, 'fakeB_list.npy'), fakeB_list)
+
