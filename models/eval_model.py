@@ -28,7 +28,6 @@ class EvalModel(BaseModel):
     def set_input(self, data):
         self.oe = data["oe"].to(self.device)
         self.ue = data["ue"].to(self.device)
-        self.gt = data["gt"].to(self.device)
         self.cls = data['cls'].to(self.device)
         self.image_paths = data['image_name']
 
